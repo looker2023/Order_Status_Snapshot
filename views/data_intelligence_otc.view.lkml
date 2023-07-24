@@ -249,7 +249,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   measure: sum_delivered_value {
     type: sum
@@ -345,9 +345,9 @@ view: data_intelligence_otc {
   dimension: delivery_status {
     type: string
     sql: CASE WHEN ${status_of_delivery} = "A" THEN "Not yet processed"
-    WHEN ${status_of_delivery}="B" THEN "Partially processed"
-    WHEN ${status_of_delivery}="C" THEN "Completely processed"
-    else "Not Relevant" END;;
+          WHEN ${status_of_delivery}="B" THEN "Partially processed"
+          WHEN ${status_of_delivery}="C" THEN "Completely processed"
+          else "Not Relevant" END;;
   }
 
   dimension: order_status {
@@ -419,7 +419,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
   dimension: late_deliveries {
     type: string
     sql: ${TABLE}.LateDeliveries ;;
@@ -711,7 +711,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Rebate_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   dimension: Tax_Amount_Local_Currency {
     value_format: "0.00"
@@ -730,7 +730,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Tax_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
 
 
@@ -804,7 +804,7 @@ view: data_intelligence_otc {
     value_format: "0.00"
     type: number
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   dimension: delivery_sales_order {
     type: string
@@ -957,7 +957,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${list_price_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   dimension: adjusted_price_Local_Currency {
     value_format: "0.00"
@@ -970,7 +970,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${adjusted_price_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   dimension: discount_Local_currency {
     value_format: "0.00"
@@ -983,7 +983,7 @@ view: data_intelligence_otc {
     type: number
     #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${discount_Local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    }
+  }
 
   dimension: delivery_date {
     type: date
